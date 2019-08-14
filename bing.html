@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -10,34 +10,45 @@
     <script src="./ext-all.js"></script>
     <title>this is bing test</title>
     <style>
-    #searchBox ul {
-    background: transparent;
-    color: black;
-    border: none;
-     }
-     
-    #searchBox div {
-    background: transparent;
-    color: black;
-    border: none;
-     }
-     
-    #searchBox li {
-    background: transparent;
-    color: black;
-    border: none;
-     }
+    #tab ul {
+            background: transparent;
+            border: none;
+        }
+        #tab div {
+            background: transparent;
+            border: none;
+        }
     
     
     </style>
     <script>
         Ext.onReady(function () {
-           
+            Ext.QuickTips.init();
+            Ext.ns('com.test');
+
+            com.test.SearchBar = function () {
+                this.init = function (cmp) {
+                    cmp.add({
+                        id: 'home',
+                        xtype: 'textfield',
+                        title: '国内版',
+                        height: '32px'
+                    });
+                    cmp.add({
+                        id: 'foreign',
+                        xtype: 'textfield',
+                        title: '国际版',
+                        height: '32px'
+                    });
+                }
+            }
+            Ext.preg('com.test.SearchBar', com.test.SearchBar);
 
             var vp = new Ext.Container({
                 renderTo:'search',
                 width: 2000,
                 height: 300,
+                layout:'column',
                 items: [
                     {
                         xtype: 'box',
@@ -52,11 +63,14 @@
                     },
                     {
                         xtype: 'tabpanel',
+                        id:'tab',
                         style: 'position:absolute;',
                         pageX: 430,
                         pageY: 180,
+                        anchor: '50%',
                         height: 70,
                         width: 400,
+                        activeTab: 0,
                         items: [
                             {
                                 title: '国内版',
